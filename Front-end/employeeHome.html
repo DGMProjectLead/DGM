@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Home Page</title>
+
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/style.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/homePageStyle.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+</head>
+
+<body>
+
+<div class="greyheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img style="float:left" src="UVU Institutional Square/PNG/UVUSquareGreen-0001.png" alt="UVU Square Logo"/>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=""container">
+
+</div>
+
+<nav class="navbar navbar-inverse visible-xs">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Employee Dashboard</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Review Item Requests</a></li>
+                <li><a href="#">Inventory Database Search</a></li>
+                <li><a href="#">View Inventory Rental Report</a></li>
+                <li><a href="#">View Inventory All Report</a></li>
+                <li><a href="#">Update Inventory</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>Employee Dashboard</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#section1">Review Item Requests</a></li>
+                <li><a href="#section2">Inventory Database Search</a></li>
+                <li><a href="#section3">View Inventory Rental Report</a></li>
+                <li><a href="#section3">View Inventory All Report</a></li>
+                <li><a href="#section3">Update Inventory</a></li>
+            </ul><br>
+        </div>
+        <br>
+
+        <div class="col-sm-9">
+            <div class="well">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="">Requests (Request ID: Item)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class=""><a class="">1: Sony a7s (#3381985)</a>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class=""><a class="">2: Sony EX-3 #1 (#107607)</a>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Request Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form contenteditable="false">
+                                    <div class="form-group row">
+                                        <label for="requestID" class="col-sm-3 col-form-label">Request ID</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="requestID" placeholder="1" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="item" class="col-sm-3 col-form-label">Item</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="item" placeholder="Sony a7s (#3381985)" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="qty" class="col-sm-3 col-form-label">Quantity</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="qty" placeholder="1" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="desPickupDay" class="col-sm-3 col-form-label">Desired Pickup Day</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="desPickupDay" placeholder="05/02/2017" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="rentalLength" class="col-sm-3 col-form-label">Rental Length</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="rentalLength" placeholder="3 Days" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="useLocation" class="col-sm-3 col-form-label">Location of Use</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="useLocation" placeholder="On Campus - LC 311" readonly="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="comments" class="col-sm-3 col-form-label">Comments</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="comments" placeholder="Need for a school project." readonly="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-success">Approve</button>
+                                    <button type="submit" class="btn btn-danger">Deny</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="greenfooter text-center">
+    <span>Digital Media</span>
+    |
+    <span><a href="mailto:SCHNEIGL@UVU.EDU">schneigl@uvu.edu</a></span>
+    |
+    <span> 801.863.8485</span>
+    |
+    <span> Room CS 526</span>
+</div>
+
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

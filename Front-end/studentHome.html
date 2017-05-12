@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Home Page</title>
+
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/style.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/homePageStyle.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+</head>
+
+<body>
+
+<div class="greyheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img style="float:left" src="UVU Institutional Square/PNG/UVUSquareGreen-0001.png" alt="UVU Square Logo"/>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=""container">
+
+</div>
+
+<nav class="navbar navbar-inverse visible-xs">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Student Dashboard</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Item Request Form</a></li>
+                <li><a href="#">View Available Rentals</a></li>
+                <li><a href="#">View Request Status</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>Student Dashboard</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#section1">Item Request Form</a></li>
+                <li><a href="#section2">View Available Rentals</a></li>
+                <li><a href="#section3">View Request Status</a></li>
+            </ul><br>
+        </div>
+        <br>
+
+        <div class="col-sm-9">
+            <div class="well">
+                <h4>Item Request Form</h4>
+                <form>
+                    <div class="form-group row">
+                        <label for="item" class="col-sm-2 col-form-label">Item</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="item">
+                                <option>Sony a7s (#3381985)</option>
+                                <option>Sony a7s (#3391744)</option>
+                                <option>Sony EX-3 #1 (#107607)</option>
+                                <option>Sony EX-3 #2 (#107610)</option>
+                                <option>Sony EX-3 #3 (#101495)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="qty" class="col-sm-2 col-form-label">Quantity</label>
+                        <div class="col-sm-1">
+                            <input class="form-control" type="text" id="qty">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="desPickupDay" class="col-sm-2 col-form-label">Desired Pickup Day</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" placeholder="MM/DD/YYYY" id="desPickupDay">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="rentalLength" class="col-sm-2 col-form-label">Rental Length</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="rentalLength">
+                                <option>1 Day</option>
+                                <option>2 Days</option>
+                                <option>3 Days</option>
+                                <option>4 Days</option>
+                                <option>5 Days</option>
+                                <option>6 Days</option>
+                                <option>7 Days</option>
+                                <option>8 Days</option>
+                                <option>9 Days</option>
+                                <option>10 Days</option>
+                                <option>11 Days</option>
+                                <option>12 Days</option>
+                                <option>13 Days</option>
+                                <option>14 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="useLocation" class="col-sm-2 col-form-label">Location of Use</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" id="useLocation">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="comments" class="col-sm-2 col-form-label">Comments</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" type="text" placeholder="Optional: Comments relevant to the item request." id="comments">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="greenfooter text-center">
+    <span>Digital Media</span>
+    |
+    <span><a href="mailto:SCHNEIGL@UVU.EDU">schneigl@uvu.edu</a></span>
+    |
+    <span> 801.863.8485</span>
+    |
+    <span> Room CS 526</span>
+</div>
+
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

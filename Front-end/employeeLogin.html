@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Login</title>
+
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/style.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/loginStyle.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+</head>
+
+<body>
+
+<div class="blackheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img style="float:left" src="UVU Institutional Square/PNG/UVUSquareWhite-0003.png" alt="UVU Square Logo"/>
+                <!--<p style="color:white">Employee Login</p>"-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Employee Login</h2>
+        <label for="inputID" class="sr-only">ID</label>
+        <input type="ID" id="inputID" class="form-control" placeholder="UVU ID" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-success btn-block" type="submit" onclick="relocate_home()">Sign in</button>
+    </form>
+
+</div> <!-- /container -->
+
+<div class="blackfooter text-center">
+    <span>Digital Media</span>
+    |
+    <span><a href="mailto:SCHNEIGL@UVU.EDU">schneigl@uvu.edu</a></span>
+    |
+    <span> 801.863.8485</span>
+    |
+    <span> Room CS 526</span>
+</div>
+
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script>
+    function relocate_home()
+    {
+        location.href = "employeeHome.html";
+    }
+</script>
+
+</body>
+</html>
