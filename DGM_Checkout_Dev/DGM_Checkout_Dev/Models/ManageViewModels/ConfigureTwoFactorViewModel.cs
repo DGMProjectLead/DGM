@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DGM_Checkout_Dev.Models.ManageViewModels
+namespace DGM_Checkout_dev.Models.ManageViewModels
 {
     public class ConfigureTwoFactorViewModel
     {

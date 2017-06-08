@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DGM_Checkout_Dev.Models.AccountViewModels
+namespace DGM_Checkout_dev.Models.AccountViewModels
 {
     public class SendCodeViewModel
     {

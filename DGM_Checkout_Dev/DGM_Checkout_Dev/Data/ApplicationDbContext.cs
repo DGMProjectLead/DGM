@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using DGM_Checkout_Dev.Models;
+using DGM_Checkout_dev.Models;
 
-namespace DGM_Checkout_Dev.Data
+namespace DGM_Checkout_dev.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
