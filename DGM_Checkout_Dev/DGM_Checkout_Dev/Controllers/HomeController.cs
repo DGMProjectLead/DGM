@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DGM_Checkout_Dev.Controllers
+namespace DGM_Checkout_dev.Controllers
 {
     public class HomeController : Controller
     {

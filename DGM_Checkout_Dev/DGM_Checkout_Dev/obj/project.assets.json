@@ -10955,10 +10955,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\10757128\\Documents\\GitHub\\DGM\\DGM_Checkout_Dev\\DGM_Checkout_Dev\\DGM_Checkout_Dev.csproj",
-      "projectName": "DGM_Checkout_Dev",
-      "projectPath": "C:\\Users\\10757128\\Documents\\GitHub\\DGM\\DGM_Checkout_Dev\\DGM_Checkout_Dev\\DGM_Checkout_Dev.csproj",
-      "outputPath": "C:\\Users\\10757128\\Documents\\GitHub\\DGM\\DGM_Checkout_Dev\\DGM_Checkout_Dev\\obj\\",
+      "projectUniqueName": "C:\\Users\\10757128\\Documents\\GitHub\\DGM\\DGM_Checkout_dev\\DGM_Checkout_dev\\DGM_Checkout_dev.csproj",
+      "projectName": "DGM_Checkout_dev",
+      "projectPath": "C:\\Users\\10757128\\Documents\\GitHub\\DGM\\DGM_Checkout_dev\\DGM_Checkout_dev\\DGM_Checkout_dev.csproj",
+      "outputPath": "C:\\Users\\10757128\\Documents\\GitHub\\DGM\\DGM_Checkout_dev\\DGM_Checkout_dev\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using DGM_Checkout_Dev.Models;
-using DGM_Checkout_Dev.Models.AccountViewModels;
-using DGM_Checkout_Dev.Services;
+using DGM_Checkout_dev.Models;
+using DGM_Checkout_dev.Models.AccountViewModels;
+using DGM_Checkout_dev.Services;
 
-namespace DGM_Checkout_Dev.Controllers
+namespace DGM_Checkout_dev.Controllers
 {
     [Authorize]
     public class AccountController : Controller

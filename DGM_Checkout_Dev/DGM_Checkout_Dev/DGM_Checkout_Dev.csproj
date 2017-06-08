@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <UserSecretsId>aspnet-DGM_Checkout_Dev-7e706b19-b770-434c-bb3a-f19caba6e186</UserSecretsId>
+    <UserSecretsId>aspnet-DGM_Checkout_dev-a5e9d94b-81a5-428c-8e42-5a34e45f261e</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
