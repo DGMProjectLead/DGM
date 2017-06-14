@@ -1,0 +1,77 @@
+@model DGM_Checkout_dev.Models.Rental
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Rental</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="RentalID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalCheckoutDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalCheckoutDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalDueDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalDueDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalReturnDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalReturnDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalNotes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalLateFee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalLateFee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalLateFeePaid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalLateFeePaid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalLocation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.UserEmail)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

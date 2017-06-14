@@ -1,0 +1,99 @@
+@model DGM_Checkout_dev.Models.Inventory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Inventory</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="InventoryID" />
+        <div class="form-group">
+            <label asp-for="InventorySerialNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventorySerialNumber" class="form-control" />
+                <span asp-validation-for="InventorySerialNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryName" class="form-control" />
+                <span asp-validation-for="InventoryName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryMake" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryMake" class="form-control" />
+                <span asp-validation-for="InventoryMake" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryModel" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryModel" class="form-control" />
+                <span asp-validation-for="InventoryModel" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryNotes" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryNotes" class="form-control" />
+                <span asp-validation-for="InventoryNotes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryCost" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryCost" class="form-control" />
+                <span asp-validation-for="InventoryCost" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TypeID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="TypeID" class="form-control" asp-items="ViewBag.TypeID"></select>
+                <span asp-validation-for="TypeID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LocationID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="LocationID" class="form-control" asp-items="ViewBag.LocationID"></select>
+                <span asp-validation-for="LocationID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StatusID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID"></select>
+                <span asp-validation-for="StatusID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="RentalID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="RentalID" class="form-control" asp-items="ViewBag.RentalID"></select>
+                <span asp-validation-for="RentalID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

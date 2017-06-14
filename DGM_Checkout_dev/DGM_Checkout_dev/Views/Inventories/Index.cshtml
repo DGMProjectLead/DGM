@@ -1,0 +1,89 @@
+@model IEnumerable<DGM_Checkout_dev.Models.Inventory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventorySerialNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryMake)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryNotes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryCost)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rental)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventorySerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryMake)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryNotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.LocationID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rental.RentalID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.StatusID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.TypeID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InventoryID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InventoryID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InventoryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
