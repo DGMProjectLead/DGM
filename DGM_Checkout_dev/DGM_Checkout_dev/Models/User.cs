@@ -40,6 +40,14 @@ namespace DGM_Checkout_dev.Models
         [StringLength(200)]
         public string UserNotes { get; set; }
 
+        public string UserFullInfo
+        {
+            get
+            {
+                return UVID + " - " + UserFirstName + " " + UserLastName;
+            }
+        }
+
         public ICollection<Rental> Rentals { get; set; }    //Navigation property to link students to multiple rentals, also used for one-to-many or many-to-many relationships
     }
 }

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DGM_Checkout_dev.Controllers
 {
+    [Authorize]
     public class LocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -50,11 +52,9 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Locations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocationID,LocationEntry")] Location location)
+        public async Task<IActionResult> Create([Bind("LocationEntry")] Location location)
         {
             if (ModelState.IsValid)
             {
@@ -82,38 +82,29 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Locations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LocationID,LocationEntry")] Location location)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != location.LocationID)
+            if (id == null)
             {
                 return NotFound();
             }
+            var locationUpdate = await _context.Location.SingleOrDefaultAsync(l => l.LocationID == id);
 
-            if (ModelState.IsValid)
+            if (await TryUpdateModelAsync<Location>( locationUpdate, "", l => l.LocationEntry))
             {
                 try
                 {
-                    _context.Update(location);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!LocationExists(location.LocationID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. Try again and if problems continue call IT support");
                 }
-                return RedirectToAction("Index");
-            }
-            return View(location);
+            }      
+            return View(locationUpdate);
         }
 
         // GET: Locations/Delete/5
