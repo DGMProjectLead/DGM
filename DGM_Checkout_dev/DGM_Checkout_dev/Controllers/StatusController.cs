@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DGM_Checkout_dev.Controllers
 {
+    [Authorize]
     public class StatusController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -50,11 +52,9 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Status/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StatusID,StatusEntry")] Status status)
+        public async Task<IActionResult> Create([Bind("StatusEntry")] Status status)
         {
             if (ModelState.IsValid)
             {
@@ -82,38 +82,29 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Status/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StatusID,StatusEntry")] Status status)
+        public async Task<IActionResult> EditPost(int? id) 
         {
-            if (id != status.StatusID)
+            if (id == null)
             {
                 return NotFound();
             }
+            var statusUpdate = await _context.Status.SingleOrDefaultAsync(s => s.StatusID == id);
 
-            if (ModelState.IsValid)
+            if (await TryUpdateModelAsync<Status>( statusUpdate, "", s => s.StatusEntry))
             {
                 try
                 {
-                    _context.Update(status);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!StatusExists(status.StatusID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. Try again and if problems continue call IT support");
                 }
-                return RedirectToAction("Index");
-            }
-            return View(status);
+            }      
+            return View(statusUpdate);
         }
 
         // GET: Status/Delete/5

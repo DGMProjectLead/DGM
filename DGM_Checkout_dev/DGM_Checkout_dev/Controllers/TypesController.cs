@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DGM_Checkout_dev.Controllers
 {
+    [Authorize]
     public class TypesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -50,11 +52,9 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Types/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TypeID,TypeEntry")] Models.Type @type)
+        public async Task<IActionResult> Create([Bind("TypeEntry")] Models.Type @type)
         {
             if (ModelState.IsValid)
             {
@@ -82,38 +82,30 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Types/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        // 
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TypeID,TypeEntry")] Models.Type @type)
+        public async Task<IActionResult> EditPost(int? id)  
         {
-            if (id != @type.TypeID)
+            if (id == null)
             {
                 return NotFound();
             }
+            var typeUpdate = await _context.Type.SingleOrDefaultAsync(t => t.TypeID == id);
 
-            if (ModelState.IsValid)
+            if(await TryUpdateModelAsync<Models.Type>( typeUpdate, "", t => t.TypeEntry))
             {
                 try
                 {
-                    _context.Update(@type);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!TypeExists(@type.TypeID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. Try again and if problems continue call IT support.");
                 }
-                return RedirectToAction("Index");
             }
-            return View(@type);
+            return View(typeUpdate);
         }
 
         // GET: Types/Delete/5

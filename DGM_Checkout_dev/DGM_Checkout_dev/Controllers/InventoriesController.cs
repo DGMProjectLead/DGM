@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DGM_Checkout_dev.Controllers
 {
+    [Authorize]
     public class InventoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -51,19 +53,17 @@ namespace DGM_Checkout_dev.Controllers
         // GET: Inventories/Create
         public IActionResult Create()
         {
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationID");
-            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalID");
-            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusID");
-            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeID");
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry");
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName");
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry");
+            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry");
             return View();
         }
 
         // POST: Inventories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InventoryID,InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID,RentalID")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID,RentalID")] Inventory inventory)
         {
             if (ModelState.IsValid)
             {
@@ -71,10 +71,10 @@ namespace DGM_Checkout_dev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationID", inventory.LocationID);
-            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalID", inventory.RentalID);
-            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusID", inventory.StatusID);
-            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeID", inventory.TypeID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry", inventory.LocationID);
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventory.RentalID);
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry", inventory.StatusID);
+            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry", inventory.TypeID);
             return View(inventory);
         }
 
@@ -91,50 +91,42 @@ namespace DGM_Checkout_dev.Controllers
             {
                 return NotFound();
             }
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationID", inventory.LocationID);
-            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalID", inventory.RentalID);
-            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusID", inventory.StatusID);
-            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeID", inventory.TypeID);
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry", inventory.LocationID);
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventory.RentalID);
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry", inventory.StatusID);
+            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry", inventory.TypeID);
             return View(inventory);
         }
 
         // POST: Inventories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InventoryID,InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID,RentalID")] Inventory inventory)
+        public async Task<IActionResult> EditPost(int? id) //, [Bind("InventoryID,InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID,RentalID")] Inventory inventory)
         {
-            if (id != inventory.InventoryID)
+            if (id == null)
             {
                 return NotFound();
             }
+            var inventoryUpdate = await _context.Inventory.SingleOrDefaultAsync( i => i.InventoryID == id);
 
-            if (ModelState.IsValid)
+            if(await TryUpdateModelAsync<Inventory>( inventoryUpdate, "", i => i.InventorySerialNumber, i => i.InventoryName, i => i.InventoryMake, i => i.InventoryModel, i => i.InventoryNotes, i => i.InventoryCost, i => i.TypeID, i => i.LocationID, i => i.StatusID, i => i.RentalID))
             {
                 try
                 {
-                    _context.Update(inventory);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!InventoryExists(inventory.InventoryID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes. Try again and if problems continue contact IT support.");
                 }
-                return RedirectToAction("Index");
             }
-            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationID", inventory.LocationID);
-            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalID", inventory.RentalID);
-            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusID", inventory.StatusID);
-            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeID", inventory.TypeID);
-            return View(inventory);
+            
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry", inventoryUpdate.LocationID);
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventoryUpdate.RentalID);
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry", inventoryUpdate.StatusID);
+            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry", inventoryUpdate.TypeID);
+            return View(inventoryUpdate);
         }
 
         // GET: Inventories/Delete/5

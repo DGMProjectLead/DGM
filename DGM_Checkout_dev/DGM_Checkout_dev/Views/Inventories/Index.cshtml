@@ -67,16 +67,16 @@
                 @Html.DisplayFor(modelItem => item.InventoryCost)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location.LocationID)
+                @Html.DisplayFor(modelItem => item.Location.LocationEntry)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rental.RentalID)
+                @Html.DisplayFor(modelItem => item.Rental.RentalName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status.StatusID)
+                @Html.DisplayFor(modelItem => item.Status.StatusEntry)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type.TypeID)
+                @Html.DisplayFor(modelItem => item.Type.TypeEntry)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.InventoryID">Edit</a> |

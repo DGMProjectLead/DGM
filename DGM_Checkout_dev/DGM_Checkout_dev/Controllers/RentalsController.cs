@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DGM_Checkout_dev.Controllers
 {
+    [Authorize]
     public class RentalsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -48,16 +50,14 @@ namespace DGM_Checkout_dev.Controllers
         // GET: Rentals/Create
         public IActionResult Create()
         {
-            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserEmail");
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo");
             return View();
         }
 
         // POST: Rentals/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RentalID,RentalName,RentalCheckoutDate,RentalDueDate,RentalReturnDate,RentalNotes,RentalLateFee,RentalLateFeePaid,RentalLocation,UserID")] Rental rental)
+        public async Task<IActionResult> Create([Bind("RentalName,RentalCheckoutDate,RentalDueDate,RentalReturnDate,RentalNotes,RentalLateFee,RentalLateFeePaid,RentalLocation,UserID")] Rental rental)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace DGM_Checkout_dev.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserEmail", rental.UserID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
             return View(rental);
         }
 
@@ -82,44 +82,37 @@ namespace DGM_Checkout_dev.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserEmail", rental.UserID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
             return View(rental);
         }
 
         // POST: Rentals/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RentalID,RentalName,RentalCheckoutDate,RentalDueDate,RentalReturnDate,RentalNotes,RentalLateFee,RentalLateFeePaid,RentalLocation,UserID")] Rental rental)
+        public async Task<IActionResult> EditPost(int? id) 
         {
-            if (id != rental.RentalID)
+            if (id == null)
             {
                 return NotFound();
             }
+            var rentalUpdate = await _context.Rental.SingleOrDefaultAsync(r => r.RentalID == id);
 
-            if (ModelState.IsValid)
+            if(await TryUpdateModelAsync<Rental>( rentalUpdate, "", r => r.RentalName, r => r.RentalCheckoutDate, r => r.RentalDueDate, r => r.RentalReturnDate, r => r.RentalNotes, r => r.RentalLateFee, r => r.RentalLateFeePaid, r => r.RentalLocation, r => r.UserID ))
             {
                 try
                 {
-                    _context.Update(rental);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!RentalExists(rental.RentalID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes.  Try again and if problems continue call IT support.");
                 }
-                return RedirectToAction("Index");
+
             }
-            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserEmail", rental.UserID);
-            return View(rental);
+
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rentalUpdate.UserID);
+            return View(rentalUpdate);
         }
 
         // GET: Rentals/Delete/5
