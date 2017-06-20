@@ -46,6 +46,29 @@
         <dd>
             @Html.DisplayFor(model => model.UserNotes)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rentals)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Rentals</th>
+                    <th>Details</th>
+                </tr>
+                @foreach(var item in Model.Rentals)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentalName)
+                        </td>
+                        <td>
+                            <a asp-controller="Rentals" asp-action="Details" asp-route-id="@item.RentalID">View Rental</a>
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>

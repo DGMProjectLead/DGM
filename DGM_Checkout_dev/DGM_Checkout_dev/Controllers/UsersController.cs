@@ -22,9 +22,19 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        //Added search functionality for user first and last names
+        public async Task<IActionResult> Index(string nameSearch)
         {
-            return View(await _context.User.ToListAsync());
+            ViewData["nameSearch"] = nameSearch;
+
+            var users = from u in _context.User
+                        select u;
+
+            if(!String.IsNullOrEmpty(nameSearch))
+            {
+                users = users.Where(u => u.UserFirstName.Contains(nameSearch) ||  u.UserLastName.Contains(nameSearch));
+            }
+            return View(await users.AsNoTracking().ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -36,6 +46,7 @@ namespace DGM_Checkout_dev.Controllers
             }
 
             var user = await _context.User
+                .Include(u => u.Rentals)
                 .SingleOrDefaultAsync(m => m.UserID == id);
             if (user == null)
             {

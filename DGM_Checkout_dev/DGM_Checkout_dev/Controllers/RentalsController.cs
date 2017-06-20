@@ -36,8 +36,11 @@ namespace DGM_Checkout_dev.Controllers
                 return NotFound();
             }
 
+            //linked the rental to inventory with .include
             var rental = await _context.Rental
                 .Include(r => r.User)
+                .Include(r => r.Inventory)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.RentalID == id);
             if (rental == null)
             {

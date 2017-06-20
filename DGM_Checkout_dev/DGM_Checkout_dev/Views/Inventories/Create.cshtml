@@ -74,7 +74,9 @@
         <div class="form-group">
             <label asp-for="RentalID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="RentalID" class ="form-control" asp-items="ViewBag.RentalID"></select>
+                <select asp-for="RentalID" class ="form-control" asp-items="ViewBag.RentalID">
+                <option value="">-- No Rental --</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

@@ -62,7 +62,39 @@
             @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.User.UserEmail)
+            <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserID">@Html.DisplayFor(model => model.User.UserFullInfo)</a>
+        </dd>
+
+        @*Added a table to display all inventory items in the rental package*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Inventory)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Serial Number
+                    </th>
+
+                    @foreach (var item in Model.Inventory)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.InventoryName)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InventorySerialNumber)
+                            </td>
+                            <td>
+                                <a asp-area="" asp-controller="Inventories" asp-action="Details" asp-route-id="@item.InventoryID">Details</a>
+                            </td>
+                        </tr>
+
+
+
+                    }
+            </table>
         </dd>
     </dl>
 </div>
