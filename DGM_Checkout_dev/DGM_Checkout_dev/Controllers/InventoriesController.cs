@@ -25,6 +25,7 @@ namespace DGM_Checkout_dev.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Inventory.Include(i => i.Location).Include(i => i.Rental).Include(i => i.Status).Include(i => i.Type);
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -101,7 +102,7 @@ namespace DGM_Checkout_dev.Controllers
         // POST: Inventories/Edit/5
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id) //, [Bind("InventoryID,InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID,RentalID")] Inventory inventory)
+        public async Task<IActionResult> EditPost(int? id) 
         {
             if (id == null)
             {
