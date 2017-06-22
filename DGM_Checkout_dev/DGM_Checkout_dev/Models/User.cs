@@ -12,11 +12,12 @@ namespace DGM_Checkout_dev.Models
 
         [Required]
         [Display(Name = "UVID")]
-        public int UVID { get; set; }
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Please enter an 8 digit UVID number. ")]
+        public string UVID { get; set; }
 
         [Required]
         [Display(Name = "First Name")]
-        [StringLength(20, ErrorMessage = "Name cannot be longer than 20 characters")]   //Set the max string length, and generate error message for long strings
+        [StringLength(20, ErrorMessage = "Name cannot be longer than 20 characters")]   
         public string UserFirstName { get; set; }
 
         [Required]
@@ -27,13 +28,14 @@ namespace DGM_Checkout_dev.Models
         [Required]
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
-        [Phone(ErrorMessage = "Please enter a valid phone number")]             //'Phone' should set phone format to xxx-xxx-xxxx or (xxx) xxx-xxxx, need to check
+        [Phone(ErrorMessage = "Phone number required for a new student.")]   
+        [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Please enter a phone number with dashes: xxx-xxx-xxxx ")]
         public string UserPhone { get; set; }
 
         [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "Please enter a valid email address")]     //'EmailAddress' should validate for email addresses like '@xxxxx.yyy' 
+        [EmailAddress(ErrorMessage = "Email is required for a new student.")] 
         public string UserEmail { get; set; }
 
         [Display(Name = "Notes")]
@@ -45,6 +47,14 @@ namespace DGM_Checkout_dev.Models
             get
             {
                 return UVID + " - " + UserFirstName + " " + UserLastName;
+            }
+        }
+
+        public string UserFullName
+        {
+            get
+            {
+                return UserFirstName + " " + UserLastName;
             }
         }
 

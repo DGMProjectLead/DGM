@@ -64,7 +64,7 @@ namespace DGM_Checkout_dev.Controllers
         // POST: Inventories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID,RentalID")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID")] Inventory inventory)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace DGM_Checkout_dev.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry", inventory.LocationID);
-            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventory.RentalID);
+            //ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventory.RentalID);
             ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry", inventory.StatusID);
             ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry", inventory.TypeID);
             return View(inventory);
@@ -87,7 +87,12 @@ namespace DGM_Checkout_dev.Controllers
                 return NotFound();
             }
 
-            var inventory = await _context.Inventory.SingleOrDefaultAsync(m => m.InventoryID == id);
+            var inventory = await _context.Inventory
+                .Include(i => i.Location)
+                .Include(i => i.Status)
+                .Include(i => i.Rental)
+                .Include(i => i.Type)
+                .SingleOrDefaultAsync(m => m.InventoryID == id);
             if (inventory == null)
             {
                 return NotFound();
@@ -110,7 +115,7 @@ namespace DGM_Checkout_dev.Controllers
             }
             var inventoryUpdate = await _context.Inventory.SingleOrDefaultAsync( i => i.InventoryID == id);
 
-            if(await TryUpdateModelAsync<Inventory>( inventoryUpdate, "", i => i.InventorySerialNumber, i => i.InventoryName, i => i.InventoryMake, i => i.InventoryModel, i => i.InventoryNotes, i => i.InventoryCost, i => i.TypeID, i => i.LocationID, i => i.StatusID, i => i.RentalID))
+            if(await TryUpdateModelAsync<Inventory>( inventoryUpdate, "", i => i.InventoryNotes, i => i.LocationID, i => i.StatusID, i => i.RentalID))
             {
                 try
                 {

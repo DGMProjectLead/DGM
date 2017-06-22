@@ -1,10 +1,10 @@
 @model IEnumerable<DGM_Checkout_dev.Models.Inventory>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inventory";
 }
 
-<h2>Index</h2>
+<h2>All Inventory</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -23,10 +23,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.InventoryModel)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InventoryNotes)
-                </th>
+                </th>          
                 <th>
                     @Html.DisplayNameFor(model => model.InventoryCost)
                 </th>
@@ -59,10 +56,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.InventoryModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InventoryNotes)
-            </td>
+            </td>      
             <td>
                 @Html.DisplayFor(modelItem => item.InventoryCost)
             </td>

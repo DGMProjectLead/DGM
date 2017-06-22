@@ -54,13 +54,14 @@ namespace DGM_Checkout_dev.Controllers
         public IActionResult Create()
         {
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo");
+            //ViewData["InventoryID"] = new SelectList(_context.Inventory, "InventoryID", "InventorySerialNumber");
             return View();
         }
 
         // POST: Rentals/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RentalName,RentalCheckoutDate,RentalDueDate,RentalReturnDate,RentalNotes,RentalLateFee,RentalLateFeePaid,RentalLocation,UserID")] Rental rental)
+        public async Task<IActionResult> Create([Bind("RentalName,RentalCheckoutDate,RentalDueDate,RentalNotes,RentalLocation,UserID")] Rental rental)
         {
             if (ModelState.IsValid)
             {
@@ -69,6 +70,7 @@ namespace DGM_Checkout_dev.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
+            //ViewData["InventoryID"] = new SelectList(_context.Inventory, "InventoryID", "InventorySerialNumber", rental.Inventory);
             return View(rental);
         }
 
@@ -100,7 +102,7 @@ namespace DGM_Checkout_dev.Controllers
             }
             var rentalUpdate = await _context.Rental.SingleOrDefaultAsync(r => r.RentalID == id);
 
-            if(await TryUpdateModelAsync<Rental>( rentalUpdate, "", r => r.RentalName, r => r.RentalCheckoutDate, r => r.RentalDueDate, r => r.RentalReturnDate, r => r.RentalNotes, r => r.RentalLateFee, r => r.RentalLateFeePaid, r => r.RentalLocation, r => r.UserID ))
+            if(await TryUpdateModelAsync<Rental>( rentalUpdate, "", r => r.RentalReturnDate, r => r.RentalNotes, r => r.RentalLateFee, r => r.RentalLateFeePaid, r => r.RentalLocation ))
             {
                 try
                 {
