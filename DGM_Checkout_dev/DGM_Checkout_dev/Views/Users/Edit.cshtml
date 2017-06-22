@@ -4,61 +4,101 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edit Student - @Html.DisplayFor(model => model.UserFullName)</h2>
 
 <form asp-action="Edit">
     <div class="form-horizontal">
-        <h4>User</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="UserID" />
-        <div class="form-group">
-            <label asp-for="UVID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UVID" class="form-control" />
-                <span asp-validation-for="UVID" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserFirstName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UserFirstName" class="form-control" />
-                <span asp-validation-for="UserFirstName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserLastName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UserLastName" class="form-control" />
-                <span asp-validation-for="UserLastName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserPhone" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UserPhone" class="form-control" />
-                <span asp-validation-for="UserPhone" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserEmail" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UserEmail" class="form-control" />
-                <span asp-validation-for="UserEmail" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserNotes" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UserNotes" class="form-control" />
-                <span asp-validation-for="UserNotes" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        <input type="hidden" asp-for="UserID" />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UVID)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UVID)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UserFirstName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserFirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UserLastName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserLastName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UserPhone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserPhone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserEmail)
+            </dd>
+            <dt>
+                Current Notes
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserNotes)
+            </dd>
+            
+        </dl>
+                @*
+                <div class="form-group">
+                    <label asp-for="UVID" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="UVID" class="form-control" />
+                        <span asp-validation-for="UVID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserFirstName" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="UserFirstName" class="form-control" />
+                        <span asp-validation-for="UserFirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserLastName" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="UserLastName" class="form-control" />
+                        <span asp-validation-for="UserLastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserPhone" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="UserPhone" class="form-control" />
+                        <span asp-validation-for="UserPhone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserEmail" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="UserEmail" class="form-control" />
+                        <span asp-validation-for="UserEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                *@
+                <div class="form-group">
+                    <label asp-for="UserNotes" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <textarea asp-for="UserNotes" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="UserNotes" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
     </div>
 </form>
 

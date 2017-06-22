@@ -38,10 +38,16 @@ namespace DGM_Checkout_dev.Models
 
         //Foreign keys for Type, Location, and Status entities
         //One-to-One relationships
-
+        [Display(Name = "Type of Item")]
         public int TypeID { get; set; }
+
+        [Display(Name = "Location")]
         public int LocationID { get; set; }
+
+        [Display(Name ="Item Status")]
         public int StatusID { get; set; }
+
+        [Display(Name ="Rental")]
         public int? RentalID { get; set; }
 
         public Type Type { get; set; }
