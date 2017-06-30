@@ -22,10 +22,60 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // GET: Rentals
-        public async Task<IActionResult> Index()
+        /// <summary>
+        /// Added search functions to index method
+        /// Search can likely be moved to it's own Search method or partial view
+        /// This cuts down on clutter in Index
+        /// </summary>
+        /// <param name="nameSearch"></param>
+        /// <param name="userSearch"></param>
+        /// <param name="locationSearch"></param>
+        /// <param name="checkoutSearch"></param>
+        /// <param name="dueSearch"></param>
+        /// <param name="returnSearch"></param>
+        /// <returns>Returns database entries based on the selected search inputs</returns>
+        public async Task<IActionResult> Index(string nameSearch, string userSearch, string locationSearch, string checkoutSearch, string dueSearch, string returnSearch)
         {
-            var applicationDbContext = _context.Rental.Include(r => r.User);
-            return View(await applicationDbContext.ToListAsync());
+            ViewData["nameSearch"] = nameSearch;
+            ViewData["userSearch"] = userSearch;
+            ViewData["locationSearch"] = locationSearch;
+            ViewData["checkoutSearch"] = checkoutSearch;
+            ViewData["dueSearch"] = dueSearch;
+            ViewData["returnSearch"] = returnSearch;
+
+
+            var rental = from r in _context.Rental
+                         .Include(r => r.User)
+                         select r;
+            if(!String.IsNullOrEmpty(nameSearch))
+            {
+                rental = rental.Where(r => r.RentalName.Contains(nameSearch));
+            }
+            if(!String.IsNullOrEmpty(userSearch))
+            {
+                rental = rental.Where(r => r.User.UVID.Contains(userSearch));
+            }
+            if(!String.IsNullOrEmpty(locationSearch))
+            {
+                rental = rental.Where(r => r.RentalLocation.Contains(locationSearch));
+            }
+            if(!String.IsNullOrEmpty(checkoutSearch))
+            {
+                DateTime checkoutConvert = Convert.ToDateTime(checkoutSearch);
+                rental = rental.Where(r => r.RentalCheckoutDate == checkoutConvert);
+            }
+            if(!String.IsNullOrEmpty(dueSearch))
+            {
+                DateTime dueConvert = Convert.ToDateTime(dueSearch);
+                rental = rental.Where(r => r.RentalDueDate == dueConvert);
+            }
+            if(!String.IsNullOrEmpty(returnSearch))
+            {
+                DateTime returnConvert = Convert.ToDateTime(returnSearch);
+                rental = rental.Where(r => r.RentalReturnDate == returnConvert);
+            }
+
+            return View(await rental.AsNoTracking().ToListAsync());
         }
 
         // GET: Rentals/Details/5
@@ -54,23 +104,29 @@ namespace DGM_Checkout_dev.Controllers
         public IActionResult Create()
         {
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo");
-            //ViewData["InventoryID"] = new SelectList(_context.Inventory, "InventoryID", "InventorySerialNumber");
             return View();
         }
 
         // POST: Rentals/Create
+        /// <summary>
+        /// Edited the Create method to prevent overposting to RentalID
+        /// </summary>
+        /// <param name="rental"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RentalName,RentalCheckoutDate,RentalDueDate,RentalNotes,RentalLocation,UserID")] Rental rental)
         {
+
             if (ModelState.IsValid)
             {
+                //rental.RentalName = rental.User.UVID + rental.RentalCheckoutDate.ToString();
                 _context.Add(rental);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");  //"Edit/" + rental.RentalID);
             }
+           
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
-            //ViewData["InventoryID"] = new SelectList(_context.Inventory, "InventoryID", "InventorySerialNumber", rental.Inventory);
             return View(rental);
         }
 
@@ -92,6 +148,13 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Rentals/Edit/5
+        /// <summary>
+        /// EditPost now only updates the fields listed in the TryUpdateModelAsync statement
+        /// Prevents overposting and changing values of any attribute not listed in the rentalUpdate list
+        /// see https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/crud for details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int? id) 

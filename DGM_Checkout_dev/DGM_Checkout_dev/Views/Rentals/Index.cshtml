@@ -7,9 +7,56 @@
 <h2>All Rentals</h2>
 
 <p>
-    <button><a asp-action="Create">Create Rental</a></button>
-
+    <a asp-action="Create" class="btn btn-default">Create Rental</a>
 </p>
+
+@*Form for search options*@
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search Name: <input type="text" name="nameSearch" value="@ViewData["nameSearch"]" />
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Search Checkout Date: <input type="date" name="checkoutSearch" value="@ViewData["checkoutSearch"]" />
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Search Due Date: <input type="date" name="dueSearch" value="@ViewData["dueSearch"]" />
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Search Return Date: <input type="date" name="returnSearch" value="@ViewData["returnSearch"]" />
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Search Location: <input type="text" name="locationSearch" value="@ViewData["locationSearch"]" />
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Search Student: <input type="text" name="userSearch" value="@ViewData["userSearch"]" />
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Late Fee Due: <input type="checkbox" value="" name="" /> (Not in controller yet)
+        </p>
+    </div>
+    <div class="form-actions no-color">
+        <p>
+            Late Fee Paid: <input type="checkbox" value="" name="" /> (Not in controller yet)
+        </p>
+    </div>
+    <input type="submit" value="Search" class="btn btn-default" />
+    <a asp-action="Index">Show All</a>
+</form>
+
+@*Table displaying column headins and database entries*@
 <table class="table">
     <thead>
         <tr>
@@ -26,16 +73,10 @@
                     @Html.DisplayNameFor(model => model.RentalReturnDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RentalLateFee)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RentalLateFeePaid)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.RentalLocation)
                 </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                Student
             </th>
             <th></th>
         </tr>
@@ -56,16 +97,10 @@
                 @Html.DisplayFor(modelItem => item.RentalReturnDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RentalLateFee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentalLateFeePaid)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.RentalLocation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UVID)
+                <a asp-controller="Users" asp-action="Details" asp-route-id="@item.UserID">@Html.DisplayFor(modelItem => item.User.UVID)</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RentalID">Edit</a> |

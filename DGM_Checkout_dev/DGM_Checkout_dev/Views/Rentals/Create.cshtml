@@ -22,7 +22,7 @@
         <div class="form-group">
             <label asp-for="RentalCheckoutDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="RentalCheckoutDate" class="form-control" />
+                <input asp-for="RentalCheckoutDate" class="form-control" id="txtDate"/>
                 <span asp-validation-for="RentalCheckoutDate" class="text-danger"></span>
             </div>
         </div>
@@ -112,4 +112,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }
