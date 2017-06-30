@@ -21,11 +21,21 @@ namespace DGM_Checkout_dev.Controllers
             _context = context;    
         }
 
-        // GET: Users
-        //Added search functionality for user first and last names
-        public async Task<IActionResult> Index(string nameSearch)
+        /// <summary>
+        ///Added search functions to Index method
+        /// Search can be moved to it's own Search method or partial view to eliminate clutter from Index
+        /// </summary>
+        /// <param name="nameSearch"></param>
+        /// <param name="uvidSearch"></param>
+        /// <param name="emailSearch"></param>
+        /// <param name="phoneSearch"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Index(string nameSearch, string uvidSearch, string emailSearch, string phoneSearch)
         {
             ViewData["nameSearch"] = nameSearch;
+            ViewData["uvidSearch"] = uvidSearch;
+            ViewData["emailSearch"] = emailSearch;
+            ViewData["phoneSearch"] = phoneSearch;
 
             var users = from u in _context.User
                         select u;
@@ -33,6 +43,18 @@ namespace DGM_Checkout_dev.Controllers
             if(!String.IsNullOrEmpty(nameSearch))
             {
                 users = users.Where(u => u.UserFirstName.Contains(nameSearch) ||  u.UserLastName.Contains(nameSearch));
+            }
+            if(!String.IsNullOrEmpty(uvidSearch))
+            {
+                users = users.Where(u => u.UVID.Contains(uvidSearch));
+            }
+            if(!String.IsNullOrEmpty(emailSearch))
+            {
+                users = users.Where(u => u.UserEmail.Contains(emailSearch));
+            }
+            if(!String.IsNullOrEmpty(phoneSearch))
+            {
+                users = users.Where(u => u.UserPhone.Contains(phoneSearch));
             }
             return View(await users.AsNoTracking().ToListAsync());
         }
@@ -63,7 +85,12 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Users/Create     
-        // Removed UserID to prevent overposting attacks
+        /// <summary>
+        /// Edited the Create method to prevent overposting to UserID
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UVID,UserFirstName,UserLastName,UserPhone,UserEmail,UserNotes")] User user)
@@ -94,8 +121,13 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Users/Edit/5
-        // Changed edit method to prevent overposting attacks.  See the section 'Alternative HttpPost Edit code: read and Update' at https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/crud
-        // This basically whitelists the attributes the page can update when editing an entry in the second if statement
+        /// <summary>
+        /// EditPost now only updates the fields listed in the TryUpdateModelAsync statement
+        /// Prevents overposting and changing values of any attribute not listed in the rentalUpdate list
+        /// see https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/crud for details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -154,6 +186,12 @@ namespace DGM_Checkout_dev.Controllers
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.UserID == id);
+        }
+
+        [HttpPost]
+        public JsonResult UVIDExists (string UVIDNumber)
+        {
+            return Json(!_context.User.Any(u => u.UVID == UVIDNumber));
         }
     }
 }

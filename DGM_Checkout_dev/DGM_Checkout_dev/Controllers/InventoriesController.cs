@@ -22,11 +22,81 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // GET: Inventories
-        public async Task<IActionResult> Index()
+        /// <summary>
+        /// Added search functions to Index method
+        /// Search can be moved to it's own Search method or partial view to eliminate clutter from Index
+        /// </summary>
+        /// <param name="serialNumberSearch"></param>
+        /// <param name="nameSearch"></param>
+        /// <param name="makeSearch"></param>
+        /// <param name="modelSearch"></param>
+        /// <param name="costSearch"></param>
+        /// <param name="locationSearch"></param>
+        /// <param name="rentalSearch"></param>
+        /// <param name="statusSearch"></param>
+        /// <param name="typeSearch"></param>
+        /// <param name="costRadio"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Index(string serialNumberSearch, string nameSearch, string makeSearch, string modelSearch, int costSearch, string locationSearch, string rentalSearch, string statusSearch, string typeSearch, string costRadio)
         {
-            var applicationDbContext = _context.Inventory.Include(i => i.Location).Include(i => i.Rental).Include(i => i.Status).Include(i => i.Type);
-            
-            return View(await applicationDbContext.ToListAsync());
+            ViewData["serialNumberSearch"] = serialNumberSearch;
+            ViewData["nameSearch"] = nameSearch;
+            ViewData["makeSearch"] = makeSearch;
+            ViewData["modelSearch"] = modelSearch;
+            ViewData["costSearch"] = costSearch;
+            ViewData["locationSearch"] = locationSearch;
+            ViewData["rentalSearch"] = rentalSearch;
+            ViewData["statusSearch"] = statusSearch;
+            ViewData["typeSearch"] = typeSearch;
+
+            var inventory = from i in _context.Inventory
+                            .Include(i => i.Location)
+                            .Include(i => i.Rental)
+                            .Include(i => i.Status)
+                            .Include(i => i.Type)
+                            select i;
+
+            if(!String.IsNullOrEmpty(serialNumberSearch))
+            {
+                inventory = inventory.Where(i => i.InventorySerialNumber.Contains(serialNumberSearch));
+            }
+            if (!String.IsNullOrEmpty(nameSearch))
+            {
+                inventory = inventory.Where(i => i.InventoryName.Contains(nameSearch));
+            }
+            if (!String.IsNullOrEmpty(makeSearch))
+            {
+                inventory = inventory.Where(i => i.InventoryMake.Contains(makeSearch));
+            }
+            if (!String.IsNullOrEmpty(modelSearch))
+            {
+                inventory = inventory.Where(i => i.InventoryModel.Contains(modelSearch));
+            }
+            if (!String.IsNullOrEmpty(locationSearch))
+            {
+                inventory = inventory.Where(i => i.Location.LocationEntry.Contains(locationSearch));
+            }
+            if (!String.IsNullOrEmpty(rentalSearch))
+            {
+                inventory = inventory.Where(i => i.Rental.RentalName.Contains(rentalSearch));
+            }
+            if (!String.IsNullOrEmpty(typeSearch))
+            {
+                inventory = inventory.Where(i => i.Type.TypeEntry.Contains(typeSearch));
+            }
+            if(costRadio is "greater")
+            {
+                inventory = inventory.Where(i => i.InventoryCost > costSearch);
+            }
+            if(costRadio is "less")
+            {
+                inventory = inventory.Where(i => i.InventoryCost < costSearch);
+            }
+            if(costRadio is "equal")
+            {
+                inventory = inventory.Where(i => i.InventoryCost.Equals(costSearch));
+            }     
+            return View(await inventory.AsNoTracking().ToListAsync());
         }
 
         // GET: Inventories/Details/5
@@ -62,6 +132,11 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Inventories/Create
+        /// <summary>
+        /// Edited the Create method to prevent overposting to InventoryID
+        /// </summary>
+        /// <param name="inventory"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InventorySerialNumber,InventoryName,InventoryMake,InventoryModel,InventoryNotes,InventoryCost,TypeID,LocationID,StatusID")] Inventory inventory)
@@ -105,6 +180,13 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         // POST: Inventories/Edit/5
+        /// <summary>
+        /// EditPost now only updates the fields listed in the TryUpdateModelAsync statement
+        /// Prevents overposting and changing values of any attribute not listed in the rentalUpdate list
+        /// see https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/crud for details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int? id) 

@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;    
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DGM_Checkout_dev.Models
 {
     public class User
     {
-        public int UserID { get; set; }                       //set a primary key as int, mvc reads ID or <class name>ID as primary key automatically
+        public int UserID { get; set; }    
 
         [Required]
         [Display(Name = "UVID")]
-        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Please enter an 8 digit UVID number. ")]
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Please enter an 8 digit UVID number.")]
+        [Remote("uvidExists", "", AdditionalFields = "UVID", ErrorMessage = "UVID already exists.")]
         public string UVID { get; set; }
 
         [Required]
@@ -58,6 +61,6 @@ namespace DGM_Checkout_dev.Models
             }
         }
 
-        public ICollection<Rental> Rentals { get; set; }    //Navigation property to link students to multiple rentals, also used for one-to-many or many-to-many relationships
+        public ICollection<Rental> Rentals { get; set; }   
     }
 }

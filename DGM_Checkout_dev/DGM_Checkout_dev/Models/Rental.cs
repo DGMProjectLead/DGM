@@ -10,24 +10,25 @@ namespace DGM_Checkout_dev.Models
     {
         public int RentalID { get; set; }
 
-        [Display(Name = "Rental Name")]         //Rental name to store information in place of composite primary key
+        [Display(Name = "Rental Name")]        
         [StringLength(20)]
         public string RentalName { get; set; }
 
         [Display(Name = "Checkout Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = false)]        //set format of the date to display on the page
-        public DateTime RentalCheckoutDate { get; set; }                                           //Set ApplyFormatInEditMode to false to save values in Edit View
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = false)]   
+        public DateTime RentalCheckoutDate { get; set; }                                          
 
         [Display(Name = "Due Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: MM-dd-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime RentalDueDate { get; set; }
 
+
         [Display(Name = "Return Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = false)]
-        public DateTime? RentalReturnDate { get; set; }                                             //Make ReturnDate nullable upon creation = ?
+        public DateTime? RentalReturnDate { get; set; }                                             
 
         [Display(Name = "Notes")]
         [StringLength(200)]
