@@ -23,57 +23,14 @@ namespace DGM_Checkout_dev.Controllers
 
         // GET: Rentals
         /// <summary>
-        /// Added search functions to index method
-        /// Search can likely be moved to it's own Search method or partial view
-        /// This cuts down on clutter in Index
+        /// 
         /// </summary>
-        /// <param name="nameSearch"></param>
-        /// <param name="userSearch"></param>
-        /// <param name="locationSearch"></param>
-        /// <param name="checkoutSearch"></param>
-        /// <param name="dueSearch"></param>
-        /// <param name="returnSearch"></param>
-        /// <returns>Returns database entries based on the selected search inputs</returns>
-        public async Task<IActionResult> Index(string nameSearch, string userSearch, string locationSearch, string checkoutSearch, string dueSearch, string returnSearch)
-        {
-            ViewData["nameSearch"] = nameSearch;
-            ViewData["userSearch"] = userSearch;
-            ViewData["locationSearch"] = locationSearch;
-            ViewData["checkoutSearch"] = checkoutSearch;
-            ViewData["dueSearch"] = dueSearch;
-            ViewData["returnSearch"] = returnSearch;
-
-
+        /// <returns></returns>
+        public async Task<IActionResult> Index()
+        {              
             var rental = from r in _context.Rental
                          .Include(r => r.User)
                          select r;
-            if(!String.IsNullOrEmpty(nameSearch))
-            {
-                rental = rental.Where(r => r.RentalName.Contains(nameSearch));
-            }
-            if(!String.IsNullOrEmpty(userSearch))
-            {
-                rental = rental.Where(r => r.User.UVID.Contains(userSearch));
-            }
-            if(!String.IsNullOrEmpty(locationSearch))
-            {
-                rental = rental.Where(r => r.RentalLocation.Contains(locationSearch));
-            }
-            if(!String.IsNullOrEmpty(checkoutSearch))
-            {
-                DateTime checkoutConvert = Convert.ToDateTime(checkoutSearch);
-                rental = rental.Where(r => r.RentalCheckoutDate == checkoutConvert);
-            }
-            if(!String.IsNullOrEmpty(dueSearch))
-            {
-                DateTime dueConvert = Convert.ToDateTime(dueSearch);
-                rental = rental.Where(r => r.RentalDueDate == dueConvert);
-            }
-            if(!String.IsNullOrEmpty(returnSearch))
-            {
-                DateTime returnConvert = Convert.ToDateTime(returnSearch);
-                rental = rental.Where(r => r.RentalReturnDate == returnConvert);
-            }
 
             return View(await rental.AsNoTracking().ToListAsync());
         }
@@ -120,14 +77,14 @@ namespace DGM_Checkout_dev.Controllers
 
             if (ModelState.IsValid)
             {
-                //rental.RentalName = rental.User.UVID + rental.RentalCheckoutDate.ToString();
                 _context.Add(rental);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");  //"Edit/" + rental.RentalID);
+                return RedirectToAction("AddItems/" + rental.RentalID);  //"Edit/" + rental.RentalID);
             }
            
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
             return View(rental);
+
         }
 
         // GET: Rentals/Edit/5
@@ -138,7 +95,9 @@ namespace DGM_Checkout_dev.Controllers
                 return NotFound();
             }
 
-            var rental = await _context.Rental.SingleOrDefaultAsync(m => m.RentalID == id);
+            var rental = await _context.Rental
+                .Include(r => r.User)
+                .SingleOrDefaultAsync(m => m.RentalID == id);
             if (rental == null)
             {
                 return NotFound();
@@ -176,7 +135,6 @@ namespace DGM_Checkout_dev.Controllers
                 {
                     ModelState.AddModelError("", "Unable to save changes.  Try again and if problems continue call IT support.");
                 }
-
             }
 
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rentalUpdate.UserID);
@@ -216,6 +174,78 @@ namespace DGM_Checkout_dev.Controllers
         private bool RentalExists(int id)
         {
             return _context.Rental.Any(e => e.RentalID == id);
+        }
+
+        public async Task<IActionResult> Search(string nameSearch, string userSearch, string locationSearch, string checkoutSearch, string dueSearch, string returnSearch, bool feePaid, bool feeDue)
+        {
+            ViewData["nameSearch"] = nameSearch;
+            ViewData["userSearch"] = userSearch;
+            ViewData["locationSearch"] = locationSearch;
+            ViewData["checkoutSearch"] = checkoutSearch;
+            ViewData["dueSearch"] = dueSearch;
+            ViewData["returnSearch"] = returnSearch;
+
+            var rental = from r in _context.Rental
+                         .Include(r => r.User)
+                         select r;
+            if (!String.IsNullOrEmpty(nameSearch))
+            {
+                rental = rental.Where(r => r.RentalName.Contains(nameSearch));
+            }
+            if (!String.IsNullOrEmpty(userSearch))
+            {
+                rental = rental.Where(r => r.User.UVID.Contains(userSearch));
+            }
+            if (!String.IsNullOrEmpty(locationSearch))
+            {
+                rental = rental.Where(r => r.RentalLocation.Contains(locationSearch));
+            }
+            if (!String.IsNullOrEmpty(checkoutSearch))
+            {
+                DateTime checkoutConvert = Convert.ToDateTime(checkoutSearch);
+                rental = rental.Where(r => r.RentalCheckoutDate == checkoutConvert);
+            }
+            if (!String.IsNullOrEmpty(dueSearch))
+            {
+                DateTime dueConvert = Convert.ToDateTime(dueSearch);
+                rental = rental.Where(r => r.RentalDueDate == dueConvert);
+            }
+            if (!String.IsNullOrEmpty(returnSearch))
+            {
+                DateTime returnConvert = Convert.ToDateTime(returnSearch);
+                rental = rental.Where(r => r.RentalReturnDate == returnConvert);
+            }
+            if (feePaid == true)
+            {
+                rental = rental.Where(r => r.RentalLateFeePaid == true);
+            }
+            if (feeDue == true)
+            {
+                rental = rental.Where(r => r.RentalLateFee == true);
+            }
+
+            return View(await rental.AsNoTracking().ToListAsync());
+        }
+
+        public async Task<IActionResult> AddItems(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var rental = await _context.Rental
+                .Include(r => r.User)
+                .Include(r => r.Inventory)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.RentalID == id);
+            
+            if (rental == null)
+            {
+                return NotFound();
+            }
+
+            return View(rental);
         }
     }
 }

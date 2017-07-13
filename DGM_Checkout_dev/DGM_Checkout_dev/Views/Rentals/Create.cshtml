@@ -4,25 +4,24 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Create Rental</h2>
 
 <form asp-action="Create">
     <div class="row">
     <div class="form-horizontal col-lg-6">
-        <h4>Rental</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="RentalName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="RentalName" class="form-control" />
+                <input asp-for="RentalName" class="form-control" id="Rental" type="text"/>
                 <span asp-validation-for="RentalName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="RentalCheckoutDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="RentalCheckoutDate" class="form-control" id="txtDate"/>
+                <input type="datetime" asp-for="RentalCheckoutDate" class="form-control" id="datepicker"/>
                 <span asp-validation-for="RentalCheckoutDate" class="text-danger"></span>
             </div>
         </div>
@@ -76,9 +75,10 @@
         <div class="form-group">
             <label asp-for="UserID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="UserID" class ="form-control" asp-items="ViewBag.UserID">
+                <select asp-for="UserID" class ="form-control" asp-items="ViewBag.UserID" id="User">
                     <option value="">-- Select Student --</option>
                 </select>
+                <span asp-validation-for="UserID" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -112,5 +112,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            var start = new Date();
+            $("#datepicker").datepicker().datepicker('setDate', 'today');
+      } );
+    </script>
+
 
 }
