@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "2a0b1a2c85e717fa4018c769792a678b9fa5b9c9"
+    "signature": "df72e696b9dd65adf623e5416c6544fc0e111ae2"
   },
   "compilationOptions": {
     "defines": [
@@ -38,13 +38,20 @@
           "Microsoft.Extensions.Logging.Debug": "1.1.2",
           "Microsoft.NETCore.App": "1.1.2",
           "Microsoft.VisualStudio.Web.BrowserLink": "1.1.2",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "1.1.1"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "1.1.1",
+          "jQuery.UI.Combined": "1.12.1"
         },
         "runtime": {
           "DGM_Checkout_dev.dll": {}
         },
         "compile": {
           "DGM_Checkout_dev.dll": {}
+        }
+      },
+      "jquery/1.12.4": {},
+      "jquery.ui.combined/1.12.1": {
+        "dependencies": {
+          "jQuery": "1.12.4"
         }
       },
       "microsoft.applicationinsights/2.2.0": {
@@ -3546,6 +3553,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "jquery/1.12.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pIYtWlFI5PGlJVB8jm9H96pAQ27jQhA9sCxMeGweeC3ByQRaB8BwkIuGdTt4go3IEKTmmfRC2y5k0FLFizWDQg==",
+      "path": "jquery/1.12.4",
+      "hashPath": "jquery.1.12.4.nupkg.sha512"
+    },
+    "jquery.ui.combined/1.12.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5B0LrPZ0TLlwplPRu43h7fgMtDxMMEF31HajUqHSOJ7bC6nyJUJy7AkcuGaJdBrrZAZutnSBgXT01BGiIIC4TQ==",
+      "path": "jquery.ui.combined/1.12.1",
+      "hashPath": "jquery.ui.combined.1.12.1.nupkg.sha512"
     },
     "microsoft.applicationinsights/2.2.0": {
       "type": "package",
