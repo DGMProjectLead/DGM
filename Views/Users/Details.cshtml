@@ -1,0 +1,78 @@
+@model DGM_Checkout_dev.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details - @Html.DisplayFor(model => model.UserFullName)</h2>
+
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UVID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UVID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserFirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserFirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserLastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserLastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserPhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserNotes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rentals)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Rentals</th>
+                    <th>Details</th>
+                </tr>
+                @foreach(var item in Model.Rentals)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentalName)
+                        </td>
+                        <td>
+                            <a asp-controller="Rentals" asp-action="Details" asp-route-id="@item.RentalID">View Rental</a>
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UserID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

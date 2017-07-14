@@ -1,0 +1,88 @@
+@model IEnumerable<DGM_Checkout_dev.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>All Students</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-default">Add Student</a>
+</p>
+
+@*Search form for students.  Includes name (first and last), UVID, email, and phone search boxes*@
+<form asp-action="Index" method="get"> 
+        <div class="form-actions no-color">
+            <p>
+                Search Name: <input type="text" name="nameSearch" value="@ViewData["nameSearch"]" />
+            </p>
+        </div>
+        <div class="form-actions no-color">
+            <p>
+                Search UVID: <input type="text" name="uvidSearch" value="@ViewData["uvidSearch"]" />
+            </p>
+        </div>
+        <div class="form-actions no-color">
+            <p>
+                Search Email: <input type="text" name="emailSearch" value="@ViewData["emailSearch"]" />
+            </p>
+        </div>
+        <div class="form-actions no-color">
+            <p>
+                Search Phone: <input type="text" name="phoneSearch" value="@ViewData["phoneSearch"]" />
+            </p>
+        </div>
+    <input type="submit" value="Search" class="btn btn-default" />
+    <a asp-action="Index">Show All</a>
+</form>
+
+@*Table headings to list column titles*@
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UVID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserFirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserLastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserEmail)
+                </th>
+        </tr>
+    </thead>
+
+
+    @*Loops for each item in the database and lists the fields in a table*@
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UVID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserEmail)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserID">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

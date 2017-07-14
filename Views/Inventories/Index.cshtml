@@ -1,0 +1,122 @@
+@model IEnumerable<DGM_Checkout_dev.Models.Inventory>
+
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h2>All Inventory</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-default">Create Item</a>
+</p>
+
+@*Form for search options*@
+<form asp-action="Index" method="get">
+    <h3>Search</h3>
+    <div class="form-actions no-color">
+        Serial Number: <input type="text" name="serialNumberSearch" value="@ViewData["serialNumberSearch"]" />
+    </div>
+    <div class="form-actions no-color">
+        Name: <input type="text" name="nameSearch" value="@ViewData["nameSearch"]" />
+    </div>
+    <div class="form-actions no-color">
+        Make: <input type="text" name="makeSearch" value="@ViewData["makeSearch"]" />
+    </div>
+    <div>
+        Model: <input type="text" name="modelSearch" value="@ViewData["modelSearch"]" />
+    </div>
+    <div class="form-actions no-color">
+        Cost: <input type="text" name="costSearch" value="@ViewData["costSearch"]" />
+        Greater than <input type="radio" name="costRadio" value="greater" />
+        Less than <input type="radio" name="costRadio" value="less"/>
+        Equal to <input type="radio" name="costRadio" value="equal" />        
+    </div>
+    <div class="form-actions no-color">
+        Location: <input type="text" name="locationSearch" value="@ViewData["locationSearch"]" />
+    </div>
+    <div class="form-actions no-color">
+        Rental: <input type="text" name="rentalSearch" value="@ViewData["rentalSearch"]" />
+    </div>
+    <div class="form-actions no-color">
+        Status: <input type="text" name="statusSearch" value="@ViewData["statusSearch"]" />
+    </div>
+    <div class="form-actions no-color">
+        Type: <input type="text" name="typeSearch" value="@ViewData["typeSearch"]" />
+    </div>
+    <input type="submit" value="Search" class="btn btn-default" />
+    <a asp-action="Index" class="btn btn-default">Show All</a>
+</form>
+
+
+@*Table for column headings and database entries*@
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventorySerialNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryMake)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryModel)
+                </th>          
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryCost)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rental)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventorySerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryMake)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryModel)
+            </td>      
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.LocationEntry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rental.RentalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.StatusEntry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.TypeEntry)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InventoryID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InventoryID">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

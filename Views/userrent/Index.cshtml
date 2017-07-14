@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DGM_Checkout_dev.Models>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Orders by Uvid</h2>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search UVID: <input type="text" name="userSearch" value="@ViewData["userSearch"]" />
+        </p>
+    </div>
+</form>
+
+@*Table headings to list column titles*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.user.UVID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rental.RentalID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user.UserFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user.UserLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user.UserPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.user.UserEmail)
+            </th>
+        </tr>
+    </thead>
+
+    @*Loops for each item in the database and lists the fields in a table*@
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.UVID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Rental.RentalID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.UserFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.UserLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.UserPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.UserEmail)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

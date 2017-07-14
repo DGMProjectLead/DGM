@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DGM_Checkout_dev.Models.Inventory>
+
+<h2>Late Fees</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventorySerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryMake)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+        </tr>
+    </thead>
+
+    @*Loops for each item in the database and lists the fields in a table*@
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => model.InventoryID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => model.InventorySerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => model.InventoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => model.InventoryMake)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => model.Model)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
