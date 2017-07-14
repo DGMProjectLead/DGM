@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DGM_Checkout_dev.Models>
+
+<h2>Rentals currently checked out</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rental.RentalID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => item.Rental.RentalDueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UVID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserEmail)
+            </th>
+        </tr>
+    </thead>
+
+    @*Loops for each item in the database and lists the fields in a table*@
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rental.RentalID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rental.RentalDueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UVID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserEmail)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
