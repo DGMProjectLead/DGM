@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    overflow-x: hidden;
 }
 
 /* Wrapping element */
@@ -49,3 +50,11 @@ textarea {
     }
 }
 
+.full-width-bar {
+    bottom: 0;
+    margin-bottom: 0;
+    margin: 0 -9999rem;
+    /* add back negative margin value */
+    padding: 0.25rem 9999rem;
+    background: #275D38;
+}
