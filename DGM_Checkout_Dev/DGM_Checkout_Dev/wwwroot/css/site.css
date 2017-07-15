@@ -49,4 +49,9 @@ textarea {
     }
 }
 
-
+.footer {
+    bottom: 0;
+    margin-bottom: 0;
+    height: 60px;
+    background-color: #275D38;
+}

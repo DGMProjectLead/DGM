@@ -1335,7 +1335,8 @@ mark,
   text-transform: capitalize;
 }
 .text-muted {
-  color: #777;
+  color: #ffffff;
+  padding-top: 20px;
 }
 .text-primary {
   color: #337ab7;
@@ -4256,6 +4257,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   right: 0;
   left: 0;
   z-index: 1030;
+  background-color: #275D38;
+  height: 60px;
 }
 @media (min-width: 768px) {
   .navbar-fixed-top,
