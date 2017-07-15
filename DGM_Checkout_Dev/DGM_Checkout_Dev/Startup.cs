@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using DGM_Checkout_Dev.Data;
-using DGM_Checkout_Dev.Models;
-using DGM_Checkout_Dev.Services;
+using DGM_Checkout_dev.Data;
+using DGM_Checkout_dev.Models;
+using DGM_Checkout_dev.Services;
 
-namespace DGM_Checkout_Dev
+namespace DGM_Checkout_dev
 {
     public class Startup
     {
@@ -40,12 +40,18 @@ namespace DGM_Checkout_Dev
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            var connection = @"Server=tcp:dgmcheckout-dev\DGMCHECKOUT, 50055; Database=DGM_Checkout_Dev; Trusted_Connection=True";
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connection));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+
+
+            //Adding IIS configuration for services
+            //services.Configure<IISOptions>(options => {options.AutomaticAuthentication=true;});
 
             services.AddMvc();
 

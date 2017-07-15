@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DGM_Checkout_Dev.Services
+namespace DGM_Checkout_dev.Services
 {
     public interface IEmailSender
     {

@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using DGM_Checkout_Dev.Models;
-using DGM_Checkout_Dev.Models.ManageViewModels;
-using DGM_Checkout_Dev.Services;
+using DGM_Checkout_dev.Models;
+using DGM_Checkout_dev.Models.ManageViewModels;
+using DGM_Checkout_dev.Services;
 
-namespace DGM_Checkout_Dev.Controllers
+namespace DGM_Checkout_dev.Controllers
 {
     [Authorize]
     public class ManageController : Controller

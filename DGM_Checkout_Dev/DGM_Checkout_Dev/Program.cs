@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace DGM_Checkout_Dev
+namespace DGM_Checkout_dev
 {
     public class Program
     {

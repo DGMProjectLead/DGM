@@ -1,0 +1,170 @@
+@model DGM_Checkout_dev.Models.Inventory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <hr />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.InventorySerialNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InventorySerialNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InventoryName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InventoryName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InventoryMake)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InventoryMake)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InventoryModel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InventoryModel)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InventoryNotes)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InventoryNotes)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InventoryCost)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InventoryCost)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Location)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Location.LocationEntry)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rental)
+                </dt>
+                <dd>
+                    <a asp-controller="Rentals" asp-action="Details" asp-route-id="@Model.RentalID">@Html.DisplayFor(model => model.Rental.RentalName)</a>
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status.StatusEntry)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type.TypeEntry)
+                </dd>
+            </dl>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="InventoryID" />
+        @* <div class="form-group">
+            <label asp-for="InventorySerialNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventorySerialNumber" class="form-control" />
+                <span asp-validation-for="InventorySerialNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryName" class="form-control" />
+                <span asp-validation-for="InventoryName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryMake" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryMake" class="form-control" />
+                <span asp-validation-for="InventoryMake" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryModel" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryModel" class="form-control" />
+                <span asp-validation-for="InventoryModel" class="text-danger"></span>
+            </div>
+        </div>
+        *@
+        <div class="form-group">
+            <label asp-for="InventoryNotes" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea rows="4" asp-for="InventoryNotes" class="form-control"></textarea>
+                <span asp-validation-for="InventoryNotes" class="text-danger"></span>
+            </div>
+        </div>
+        @*
+        <div class="form-group">
+            <label asp-for="InventoryCost" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="InventoryCost" class="form-control" />
+                <span asp-validation-for="InventoryCost" class="text-danger"></span>
+            </div>
+        </div>
+        *@
+        @*<div class="form-group">
+            <label asp-for="TypeID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="TypeID" class="form-control" asp-items="ViewBag.TypeID"></select>
+                <span asp-validation-for="TypeID" class="text-danger"></span>
+            </div>
+        </div>
+        *@
+        <div class="form-group">
+            <label asp-for="LocationID" class="control-label col-md-2">Location</label>
+            <div class="col-md-10">
+                <select asp-for="LocationID" class="form-control" asp-items="ViewBag.LocationID"></select>
+                <span asp-validation-for="LocationID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StatusID" class="control-label col-md-2">Status</label>
+            <div class="col-md-10">
+                <select asp-for="StatusID" class="form-control" asp-items="ViewBag.StatusID"></select>
+                <span asp-validation-for="StatusID" class="text-danger"></span>
+            </div>
+        </div>
+        @*
+        <div class="form-group">
+            <label asp-for="RentalID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="RentalID" class="form-control" asp-items="ViewBag.RentalID">
+                    <option value="">-- No Rental --</option>
+                </select>
+                <span asp-validation-for="RentalID" class="text-danger"></span>
+            </div>
+        </div>
+        *@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

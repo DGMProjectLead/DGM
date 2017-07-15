@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace DGM_Checkout_Dev.Models.ManageViewModels
+namespace DGM_Checkout_dev.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {
