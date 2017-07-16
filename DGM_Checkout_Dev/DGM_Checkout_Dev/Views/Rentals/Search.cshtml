@@ -1,0 +1,109 @@
+@model IEnumerable<DGM_Checkout_dev.Models.Rental>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h2>Search Rentals</h2>
+
+    @*Form for search options*@
+        <form asp-action="Search" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Search Name: <input type="text" name="nameSearch" value="@ViewData["nameSearch"]" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Search Checkout Date: <input type="date" name="checkoutSearch" value="@ViewData["checkoutSearch"]" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Search Due Date: <input type="date" name="dueSearch" value="@ViewData["dueSearch"]" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Search Return Date: <input type="date" name="returnSearch" value="@ViewData["returnSearch"]" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Search Location: <input type="text" name="locationSearch" value="@ViewData["locationSearch"]" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Search Student: <input type="text" name="userSearch" value="@ViewData["userSearch"]" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Rentals with Late Fees: <input type="checkbox" value="true" name="feeDue" />
+                </p>
+            </div>
+            <div class="form-actions no-color">
+                <p>
+                    Rentals with Late Fees Paid: <input type="checkbox" value="true" name="feePaid" />
+                </p>
+            </div>
+            <input type="submit" value="Search" class="btn btn-default" />
+            <a asp-action="Search">Show All</a>
+        </form>
+    
+    @*Table displaying column headins and database entries*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentalName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentalCheckoutDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentalDueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentalReturnDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentalLocation)
+                </th>
+                <th>
+                    Student
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalCheckoutDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalDueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalReturnDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalLocation)
+                    </td>
+                    <td>
+                        <a asp-controller="Users" asp-action="Details" asp-route-id="@item.UserID">@Html.DisplayFor(modelItem => item.User.UVID)</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.RentalID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.RentalID">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

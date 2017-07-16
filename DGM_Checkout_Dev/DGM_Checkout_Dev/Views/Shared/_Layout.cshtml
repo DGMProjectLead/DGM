@@ -44,6 +44,18 @@
                         </ul>
                     </li>
                     <li><a asp-area="" asp-controller="Inventories" asp-action="Index">Inventory</a></li>
+
+                    @* Reports *@
+                    <li class="dropdown">
+                        <a asp-controller="Reports" asp-action="Index" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Rentals" asp-action="Index">All Reports</a></li>
+                            <li><a asp-controller="Rentals" asp-action="RentalsOut">Rentals Out</a></li>
+                            <li><a asp-area="" asp-controller="Rentals" asp-action="LateFeeNotPaid">Late(Fee Not Paid)</a></li>
+                            <li><a asp-area="" asp-controller="Rentals" asp-action="RentalUser">Rentals by User Search</a></li>
+                        </ul>
+                    </li>
+                    
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -52,10 +64,15 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+<<<<<<< HEAD
         <footer class="full-width-bar">
             <div class="container">
                 <p class="text-muted">&copy; 2017 - DGM Checkout (dev)</p>
             </div>
+=======
+        <footer>
+            <p>&copy; 2017 - DGM Checkout (dev)</p>z
+>>>>>>> Jordan
         </footer>
     </div>
 
