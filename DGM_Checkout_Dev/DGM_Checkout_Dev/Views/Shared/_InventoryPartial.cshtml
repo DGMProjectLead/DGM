@@ -1,0 +1,46 @@
+﻿@using DGM_Checkout_dev.Models
+@model IEnumerable<DGM_Checkout_dev.Models.Inventory>
+
+
+@{
+@foreach (var item in Model)
+{        if(item.RentalID == null)
+    {
+        @Html.DisplayFor(modelItem => item.InventoryName)
+
+    }
+        <td>
+            @Html.DisplayFor(modelItem => item.InventorySerialNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryMake)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.LocationEntry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rental.RentalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.StatusEntry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type.TypeEntry)
+        </td>
+    <tr>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.InventoryID">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.InventoryID">Details</a>
+        </td>
+    </tr>
+}
+}

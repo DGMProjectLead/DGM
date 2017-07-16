@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace DGM_Checkout_dev.Models
 {
     public class Rental
@@ -44,12 +45,14 @@ namespace DGM_Checkout_dev.Models
         [StringLength(25)]
         public string RentalLocation { get; set; }
 
-        [Display(Name = "Rented to: ")]
+        [Display(Name = "Renting Student")]
         public int UserID { get; set; }
 
         public User User { get; set; }
 
         public ICollection<Inventory> Inventory { get; set; }
+
+        
 
     }
 }

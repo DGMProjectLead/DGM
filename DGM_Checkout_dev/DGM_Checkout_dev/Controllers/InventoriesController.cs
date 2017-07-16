@@ -254,5 +254,9 @@ namespace DGM_Checkout_dev.Controllers
         {
             return _context.Inventory.Any(e => e.InventoryID == id);
         }
+
+
+
+
     }
 }
