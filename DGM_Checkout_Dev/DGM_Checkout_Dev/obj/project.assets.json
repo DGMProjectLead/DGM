@@ -5176,11 +5176,7 @@
       ]
     },
     "Microsoft.DotNet.PlatformAbstractions/1.1.2": {
-<<<<<<< HEAD
       "sha512": "R1BV4p6dJQHjqPSiU3Kb8otyC0pVbk3HWVMx8yi4zQ/eZyQRQ6vli1Ron2GwXVK7+g0RELs2chy+v+v8gTAnmw==",
-=======
-      "sha512": "z4CSzQKBFokkmcJgeEGC0n6RNpxHs6/kMpzFPwIh0U6zQN4/wZqK4r96IU9e7yRMTm3kFah9k4LEn3/Ecz6/5A==",
->>>>>>> Jordan
       "type": "package",
       "path": "microsoft.dotnet.platformabstractions/1.1.2",
       "files": [
@@ -5438,11 +5434,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyModel/1.1.2": {
-<<<<<<< HEAD
       "sha512": "v/Y38U1tsdr8s5SLpTzbiwsugSFV+JNtm2lGb0agKDt/IwmWFbAqOR/rLr/ER1u4X5cHRv/J2dU6acUzYA0MFQ==",
-=======
-      "sha512": "k1dsqK0Xy3jqCr4+1rzKdA94ki3AmYDQm3kExtyJR2SgJyF1vcDPuDhsYw0S0OhffDTlA2RF2B6EaiFIuP6QaQ==",
->>>>>>> Jordan
       "type": "package",
       "path": "microsoft.extensions.dependencymodel/1.1.2",
       "files": [
@@ -11078,26 +11070,15 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\BG\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\10704554\\.nuget\\packages\\": {}
->>>>>>> Jordan
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\BG\\Documents\\GitHub\\DGM\\DGM_Checkout_Dev\\DGM_Checkout_dev\\DGM_Checkout_dev.csproj",
       "projectName": "DGM_Checkout_dev",
       "projectPath": "C:\\Users\\BG\\Documents\\GitHub\\DGM\\DGM_Checkout_Dev\\DGM_Checkout_dev\\DGM_Checkout_dev.csproj",
       "outputPath": "C:\\Users\\BG\\Documents\\GitHub\\DGM\\DGM_Checkout_Dev\\DGM_Checkout_dev\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\10704554\\Documents\\School\\DGM-Jordan-multiple-tables-page\\DGM_Checkout_Dev\\DGM_Checkout_dev\\DGM_Checkout_dev.csproj",
-      "projectName": "DGM_Checkout_dev",
-      "projectPath": "C:\\Users\\10704554\\Documents\\School\\DGM-Jordan-multiple-tables-page\\DGM_Checkout_Dev\\DGM_Checkout_dev\\DGM_Checkout_dev.csproj",
-      "outputPath": "C:\\Users\\10704554\\Documents\\School\\DGM-Jordan-multiple-tables-page\\DGM_Checkout_Dev\\DGM_Checkout_dev\\obj\\",
->>>>>>> Jordan
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
