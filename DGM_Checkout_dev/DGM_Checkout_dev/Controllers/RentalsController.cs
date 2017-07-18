@@ -227,6 +227,7 @@ namespace DGM_Checkout_dev.Controllers
             return View(await rental.AsNoTracking().ToListAsync());
         }
 
+
         public async Task<IActionResult> AddItems(int? id)
         {
             if (id == null)
@@ -236,16 +237,42 @@ namespace DGM_Checkout_dev.Controllers
 
             var rental = await _context.Rental
                 .Include(r => r.User)
-                .Include(r => r.Inventory)
-                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.RentalID == id);
-            
             if (rental == null)
             {
                 return NotFound();
             }
-
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
             return View(rental);
         }
+
+        [HttpPost, ActionName("AddItems")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItemsPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var rentalUpdate = await _context.Rental.SingleOrDefaultAsync(r => r.RentalID == id);
+
+            if (await TryUpdateModelAsync<Rental>(rentalUpdate, "", r => r.RentalReturnDate, r => r.RentalNotes, r => r.RentalLateFee, r => r.RentalLateFeePaid, r => r.RentalLocation))
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes.  Try again and if problems continue call IT support.");
+                }
+            }
+
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rentalUpdate.UserID);
+            return View(rentalUpdate);
+        }
+
+
     }
 }
