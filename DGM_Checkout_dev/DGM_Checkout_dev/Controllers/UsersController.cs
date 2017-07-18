@@ -18,7 +18,7 @@ namespace DGM_Checkout_dev.Controllers
 
         public UsersController(ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         /// <summary>
@@ -40,19 +40,19 @@ namespace DGM_Checkout_dev.Controllers
             var users = from u in _context.User
                         select u;
 
-            if(!String.IsNullOrEmpty(nameSearch))
+            if (!String.IsNullOrEmpty(nameSearch))
             {
-                users = users.Where(u => u.UserFirstName.Contains(nameSearch) ||  u.UserLastName.Contains(nameSearch));
+                users = users.Where(u => u.UserFirstName.Contains(nameSearch) || u.UserLastName.Contains(nameSearch));
             }
-            if(!String.IsNullOrEmpty(uvidSearch))
+            if (!String.IsNullOrEmpty(uvidSearch))
             {
                 users = users.Where(u => u.UVID.Contains(uvidSearch));
             }
-            if(!String.IsNullOrEmpty(emailSearch))
+            if (!String.IsNullOrEmpty(emailSearch))
             {
                 users = users.Where(u => u.UserEmail.Contains(emailSearch));
             }
-            if(!String.IsNullOrEmpty(phoneSearch))
+            if (!String.IsNullOrEmpty(phoneSearch))
             {
                 users = users.Where(u => u.UserPhone.Contains(phoneSearch));
             }
@@ -131,7 +131,7 @@ namespace DGM_Checkout_dev.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)    
+        public async Task<IActionResult> EditPost(int? id)
         {
             if (id == null)
             {
@@ -139,7 +139,7 @@ namespace DGM_Checkout_dev.Controllers
             }
             var userToUpdate = await _context.User.SingleOrDefaultAsync(u => u.UserID == id);
 
-            if (await TryUpdateModelAsync<User>(userToUpdate, "", u => u.UVID, u => u.UserFirstName, u => u.UserLastName, u => u.UserPhone, u => u.UserEmail, u => u.UserNotes)) 
+            if (await TryUpdateModelAsync<User>(userToUpdate, "", u => u.UVID, u => u.UserFirstName, u => u.UserLastName, u => u.UserPhone, u => u.UserEmail, u => u.UserNotes))
             {
                 try
                 {
@@ -189,9 +189,13 @@ namespace DGM_Checkout_dev.Controllers
         }
 
         [HttpPost]
-        public JsonResult UVIDExists (string UVIDNumber)
+        public JsonResult UVIDExists(string UVIDNumber)
         {
             return Json(!_context.User.Any(u => u.UVID == UVIDNumber));
         }
+        
     }
+
+
+
 }

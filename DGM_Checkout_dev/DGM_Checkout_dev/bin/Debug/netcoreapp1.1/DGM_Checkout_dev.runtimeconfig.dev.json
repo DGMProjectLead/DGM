@@ -1,7 +1,11 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
+<<<<<<< HEAD
       "C:\\Users\\BG\\.nuget\\packages"
+=======
+      "C:\\Users\\10704554\\.nuget\\packages"
+>>>>>>> Jordan
     ]
   }
 }
