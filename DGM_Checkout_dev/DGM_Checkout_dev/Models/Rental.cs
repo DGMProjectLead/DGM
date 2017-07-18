@@ -44,7 +44,7 @@ namespace DGM_Checkout_dev.Models
         [StringLength(25)]
         public string RentalLocation { get; set; }
 
-        [Display(Name = "Renting Student")]
+        [Display(Name = "Rented to: ")]
         public int UserID { get; set; }
 
         public User User { get; set; }

@@ -27,7 +27,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RentalDueDate)
-
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.RentalReturnDate)
@@ -91,8 +90,10 @@
                                 <a asp-area="" asp-controller="Inventories" asp-action="Details" asp-route-id="@item.InventoryID">Details</a>
                             </td>
                         </tr>
+
+
+
                     }
-                
             </table>
         </dd>
     </dl>

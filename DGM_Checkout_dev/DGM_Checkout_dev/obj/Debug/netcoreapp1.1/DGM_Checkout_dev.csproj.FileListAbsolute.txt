@@ -4,9 +4,11 @@ C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\bin\Deb
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\bin\Debug\netcoreapp1.1\DGM_Checkout_dev.dll
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\bin\Debug\netcoreapp1.1\DGM_Checkout_dev.pdb
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.csprojResolveAssemblyReference.cache
+C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.AssemblyInfo.cs
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.dll
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.pdb
+<<<<<<< HEAD
 C:\Users\10757128\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
 C:\Users\BG\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\bin\Debug\netcoreapp1.1\DGM_Checkout_dev.deps.json
 C:\Users\BG\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\bin\Debug\netcoreapp1.1\DGM_Checkout_dev.runtimeconfig.json
@@ -18,3 +20,5 @@ C:\Users\BG\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\net
 C:\Users\BG\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.AssemblyInfo.cs
 C:\Users\BG\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.dll
 C:\Users\BG\Documents\GitHub\DGM\DGM_Checkout_Dev\DGM_Checkout_dev\obj\Debug\netcoreapp1.1\DGM_Checkout_dev.pdb
+=======
+>>>>>>> parent of 4583432... Integrated the Reports section.

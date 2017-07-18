@@ -1,7 +1,11 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
+<<<<<<< HEAD
       "C:\\Users\\BG\\.nuget\\packages"
+=======
+      "C:\\Users\\10757128\\.nuget\\packages"
+>>>>>>> parent of 4583432... Integrated the Reports section.
     ]
   }
 }
