@@ -247,5 +247,61 @@ namespace DGM_Checkout_dev.Controllers
 
             return View(rental);
         }
+        /// <summary>
+        /// Report on latefee
+        /// </summary>
+        /// <returns></returns>
+
+        public async Task<IActionResult> LateFeeNotPaid()
+        {
+            //pull all of the rentals
+            var rental = from r in _context.Rental
+                         .Include(r => r.User)
+                         select r;
+
+            //query only the rentals that have are late and do not have a late fee that is payed
+            rental = rental.Where(r => r.RentalReturnDate > r.RentalDueDate && r.RentalLateFeePaid == false || r.RentalDueDate < DateTime.Today && r.RentalReturnDate == null && r.RentalLateFeePaid == false);
+
+
+            return View(rental);
+
+        }
+
+
+        /// <summary>
+        /// Report on Rentals that have not been returned yet
+        /// </summary>
+        public async Task<IActionResult> RentalsOut()
+        {
+            //pull all of the rentals into rental 
+            var rental = from r in _context.Rental
+                         .Include(r => r.User)
+                         select r;
+
+            //query only the rentals that are still not returned.
+            rental = rental.Where(r => r.RentalReturnDate == null);
+
+
+            return View(rental);
+
+        }
+
+
+        /// <summary>
+        /// Report on Rentals organized by user
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> RentalUser()
+        {
+            //pull all of the rentals into rental and organize them by user
+            var rental = from r in _context.Rental
+                         .Include(r => r.User)
+                         orderby r.User
+                         select r;
+
+
+            return View(rental);
+
+        }
     }
 }
