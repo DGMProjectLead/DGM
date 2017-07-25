@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
 using Microsoft.AspNetCore.Authorization;
+using DGM_Checkout_dev.Models.ViewModels;
 
 namespace DGM_Checkout_dev.Controllers
 {
@@ -244,7 +245,6 @@ namespace DGM_Checkout_dev.Controllers
             {
                 return NotFound();
             }
-
             return View(rental);
         }
         /// <summary>
@@ -258,13 +258,9 @@ namespace DGM_Checkout_dev.Controllers
             var rental = from r in _context.Rental
                          .Include(r => r.User)
                          select r;
-
             //query only the rentals that have are late and do not have a late fee that is payed
             rental = rental.Where(r => r.RentalReturnDate > r.RentalDueDate && r.RentalLateFeePaid == false || r.RentalDueDate < DateTime.Today && r.RentalReturnDate == null && r.RentalLateFeePaid == false);
-
-
             return View(rental);
-
         }
 
 
@@ -280,8 +276,6 @@ namespace DGM_Checkout_dev.Controllers
 
             //query only the rentals that are still not returned.
             rental = rental.Where(r => r.RentalReturnDate == null);
-
-
             return View(rental);
 
         }
@@ -299,9 +293,65 @@ namespace DGM_Checkout_dev.Controllers
                          orderby r.User
                          select r;
 
-
             return View(rental);
-
         }
+
+        public async Task<IActionResult> Test(int? id, bool selectedCourse)
+        {
+            var viewModel = new RentalInventoryData();
+
+            viewModel.Inventory = from i in _context.Inventory
+                                  .Include(i => i.Rental)
+                                  .Include(i => i.Location)
+                                  where i.RentalID == null
+                                  select i;
+
+            var rental = await _context.Rental
+                .Include(r => r.User)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.RentalID == id);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["RentalName"] = rental.RentalName;
+            ViewData["RentalReturn"] = rental.RentalReturnDate;
+            ViewData["RentalCheckout"] = rental.RentalCheckoutDate;
+            ViewData["RentalNotes"] = rental.RentalNotes;
+            var rentalID = rental.RentalID;
+
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Test")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TestPost(int? id, bool selectedCourse)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new RentalInventoryData();
+
+            viewModel.Inventory = from i in _context.Inventory
+                                  .Include(i => i.Rental)
+                                  .Include(i => i.Location)
+                                  where i.RentalID == null
+                                  select i;
+
+            foreach (var x in viewModel.Inventory)
+            {
+                if (selectedCourse == true)
+                {
+                    _context.Database.ExecuteSqlCommand("UPDATE Inventory SET RentalID={0} WHERE InventoryID={1}", id, x.InventoryID);
+                }
+            }
+            return RedirectToAction("Details/" + id);
+        }
+
+
+
     }
 }

@@ -1,0 +1,29 @@
+
+@model DGM_Checkout_dev.Models.ViewModels.RentalInventoryData
+@{
+    ViewData["Title"] = "Add Items to Rental";
+}
+
+<h2>Add Items to Rental </h2>
+
+
+@ViewData["RentalName"]
+@ViewData["RentalReturn"]
+@ViewData["RentalCheckout"]
+@ViewData["RentalNotes"]
+
+<form asp-action="Test">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @{
+                int count = 0;
+
+                foreach (var inventory in Model.Inventory)
+                {                    
+                    <li> <input type="checkbox" name="selectedCourse" value="true" /> @inventory.InventoryName</li>
+                }
+            }
+        </div>
+    </div>
+    <input type="submit" value="Add items" class="btn btn-default" />
+</form>

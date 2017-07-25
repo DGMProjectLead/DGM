@@ -40,7 +40,7 @@ namespace DGM_Checkout_dev
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            var connection = @"Server=tcp:dgmcheckout-dev\DGMCHECKOUT, 50055; Database=DGM_Checkout_Dev; Trusted_Connection=True";
+            var connection = @"Server=tcp:dgmcheckout-dev\DGMCHECKOUT, 50055; Database=DGM_Checkout_Dev; Trusted_Connection=True; MultipleActiveResultSets=True";
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connection));
 
