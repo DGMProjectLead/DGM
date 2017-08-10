@@ -15,7 +15,6 @@ namespace DGM_Checkout_dev.Models
         [Required]
         [Display(Name = "UVID")]
         [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Please enter an 8 digit UVID number.")]
-        [Remote("uvidExists", "", AdditionalFields = "UVID", ErrorMessage = "UVID already exists.")]
         public string UVID { get; set; }
 
         [Required]

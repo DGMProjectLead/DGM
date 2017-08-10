@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DGM_Checkout_dev.Data;
 using DGM_Checkout_dev.Models;
 using Microsoft.AspNetCore.Authorization;
-using DGM_Checkout_dev.Models.ViewModels;
+//using DGM_Checkout_dev.Models.ViewModels;
 
 namespace DGM_Checkout_dev.Controllers
 {
@@ -80,7 +80,7 @@ namespace DGM_Checkout_dev.Controllers
             {
                 _context.Add(rental);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("AddItems/" + rental.RentalID);  //"Edit/" + rental.RentalID);
+                return RedirectToAction("NewRental/" + rental.RentalID);  //"Edit/" + rental.RentalID);
             }
            
             ViewData["UserID"] = new SelectList(_context.User, "UserID", "UserFullInfo", rental.UserID);
@@ -228,24 +228,16 @@ namespace DGM_Checkout_dev.Controllers
             return View(await rental.AsNoTracking().ToListAsync());
         }
 
-        public async Task<IActionResult> AddItems(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        
 
-            var rental = await _context.Rental
-                .Include(r => r.User)
-                .Include(r => r.Inventory)
-                .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.RentalID == id);
-            
-            if (rental == null)
-            {
-                return NotFound();
-            }
-            return View(rental);
+        public async Task<IActionResult> AddItems (int? id)
+        {
+
+
+
+
+            return View();
+
         }
         /// <summary>
         /// Report on latefee
@@ -296,6 +288,7 @@ namespace DGM_Checkout_dev.Controllers
             return View(rental);
         }
 
+        /*
         public async Task<IActionResult> Test(int? id, bool selectedCourse)
         {
             var viewModel = new RentalInventoryData();
@@ -324,7 +317,8 @@ namespace DGM_Checkout_dev.Controllers
 
             return View(viewModel);
         }
-
+        */
+        /*
         [HttpPost, ActionName("Test")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> TestPost(int? id, bool selectedCourse)
@@ -349,6 +343,29 @@ namespace DGM_Checkout_dev.Controllers
                 }
             }
             return RedirectToAction("Details/" + id);
+        }
+        */
+
+
+        public async Task<IActionResult> NewRental(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //linked the rental to inventory with .include
+            var rental = await _context.Rental
+                .Include(r => r.User)
+                .Include(r => r.Inventory)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.RentalID == id);
+            if (rental == null)
+            {
+                return NotFound();
+            }
+
+            return View(rental);
         }
 
 

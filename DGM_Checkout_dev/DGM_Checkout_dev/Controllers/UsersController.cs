@@ -188,10 +188,5 @@ namespace DGM_Checkout_dev.Controllers
             return _context.User.Any(e => e.UserID == id);
         }
 
-        [HttpPost]
-        public JsonResult UVIDExists (string UVIDNumber)
-        {
-            return Json(!_context.User.Any(u => u.UVID == UVIDNumber));
-        }
     }
 }

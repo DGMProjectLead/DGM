@@ -11,6 +11,10 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-DGM_Checkout_dev-a5e9d94b-81a5-428c-8e42-5a34e45f261e</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\ViewModels\RentalInventoryData.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -35,6 +39,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

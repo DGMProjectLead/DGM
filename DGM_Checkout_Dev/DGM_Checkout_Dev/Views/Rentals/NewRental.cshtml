@@ -1,0 +1,84 @@
+@model DGM_Checkout_dev.Models.Rental
+
+@{
+    ViewData["Title"] = "New Rental";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rental</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalCheckoutDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalCheckoutDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalDueDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalDueDate)
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalReturnDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalReturnDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalNotes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalLateFee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalLateFee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalLateFeePaid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalLateFeePaid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentalLocation)
+        </dd>
+        <dt>
+            Student
+        </dt>
+        <dd>
+            <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserID">@Html.DisplayFor(model => model.User.UserFullInfo)</a>
+        </dd>
+
+ 
+        </dl>
+    </div>
+    <div>
+        <a asp-controller="Inventories" asp-action="AddItems" asp-route-id="@Model.RentalID">Add Items</a>
+        @*
+        <a asp-action="Edit" asp-route-id="@Model.RentalID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+        *@
+    </div>

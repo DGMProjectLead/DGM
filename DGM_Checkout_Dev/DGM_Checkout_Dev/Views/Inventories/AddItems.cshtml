@@ -1,3 +1,4 @@
+
 @model IEnumerable<DGM_Checkout_dev.Models.Inventory>
 
 @{
@@ -5,6 +6,7 @@
 }
 
 <h2>AddItems</h2>
+
 
 <table class="table">
     <thead>
@@ -71,12 +73,15 @@
                     @Html.DisplayFor(modelItem => item.Type.TypeEntry)
                 </td>
                 <td>
+                    <a asp-action="Add" asp-route-id="@item.InventoryID">Add Item to Rental</a>
+                   
+                    @*
                     <a asp-action="Edit" asp-route-id="@item.InventoryID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.InventoryID">Details</a>
+                    *@
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
 

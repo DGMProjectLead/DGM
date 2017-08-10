@@ -54,5 +54,6 @@ namespace DGM_Checkout_dev.Models
         public Location Location { get; set; }
         public Status Status { get; set; }
         public Rental Rental { get; set; }
+        //public bool selectedCourse { get; internal set; }
     }
 }

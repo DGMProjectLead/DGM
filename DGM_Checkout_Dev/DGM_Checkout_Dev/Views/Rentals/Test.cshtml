@@ -12,6 +12,9 @@
 @ViewData["RentalCheckout"]
 @ViewData["RentalNotes"]
 
+
+
+@* Make a table to organize inventory list*@
 <form asp-action="Test">
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -19,8 +22,8 @@
                 int count = 0;
 
                 foreach (var inventory in Model.Inventory)
-                {                    
-                    <li> <input type="checkbox" name="selectedCourse" value="true" /> @inventory.InventoryName</li>
+                {                                           
+                    <li> <input type="checkbox" name="test" value="true" /> @inventory.InventorySerialNumber  -  @inventory.InventoryName</li>
                 }
             }
         </div>

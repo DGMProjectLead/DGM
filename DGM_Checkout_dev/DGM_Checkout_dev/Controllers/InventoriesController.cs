@@ -254,5 +254,88 @@ namespace DGM_Checkout_dev.Controllers
         {
             return _context.Inventory.Any(e => e.InventoryID == id);
         }
+
+        public async Task<IActionResult> AddItems()
+        {
+
+            var inventory = from i in _context.Inventory
+                .Include(i => i.Location)
+                .Include(i => i.Rental)
+                .Include(i => i.Status)
+                .Include(i => i.Type)
+                            where i.RentalID == null
+                           select i;
+            if (inventory == null)
+            {
+                return NotFound();
+            }
+
+            return View(inventory);
+        }
+
+
+
+
+        public async Task<IActionResult> Add(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var inventory = await _context.Inventory
+                .Include(i => i.Location)
+                .Include(i => i.Status)
+                .Include(i => i.Rental)
+                .Include(i => i.Type)
+                .SingleOrDefaultAsync(m => m.InventoryID == id);
+            if (inventory == null)
+            {
+                return NotFound();
+            }
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry", inventory.LocationID);
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventory.RentalID);
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry", inventory.StatusID);
+            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry", inventory.TypeID);
+            return View(inventory);
+        }
+
+        // POST: Inventories/Edit/5
+        /// <summary>
+        /// EditPost now only updates the fields listed in the TryUpdateModelAsync statement
+        /// Prevents overposting and changing values of any attribute not listed in the rentalUpdate list
+        /// see https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/crud for details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost, ActionName("Add")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var inventoryUpdate = await _context.Inventory.SingleOrDefaultAsync(i => i.InventoryID == id);
+
+            if (await TryUpdateModelAsync<Inventory>(inventoryUpdate, "", i => i.RentalID))
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("AddItems");
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Try again and if problems continue contact IT support.");
+                }
+            }
+
+            ViewData["LocationID"] = new SelectList(_context.Location, "LocationID", "LocationEntry", inventoryUpdate.LocationID);
+            ViewData["RentalID"] = new SelectList(_context.Rental, "RentalID", "RentalName", inventoryUpdate.RentalID);
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusEntry", inventoryUpdate.StatusID);
+            ViewData["TypeID"] = new SelectList(_context.Type, "TypeID", "TypeEntry", inventoryUpdate.TypeID);
+            return View(inventoryUpdate);
+        }
     }
 }
